@@ -50,7 +50,7 @@ class ScoreBoardTest {
     }
 
     @Test
-    void updatesScore() {
+    void updatesScoreWhenBothTeamsGained() {
         long id = board.startMatch("Spain", "Brazil");
         board.updateMatchScore(id, 10, 2);
 
@@ -58,6 +58,16 @@ class ScoreBoardTest {
         assertEquals(10, match.getHomeScore());
         assertEquals(2, match.getAwayScore());
         assertEquals(12, match.totalScore());
+    }
+    @Test
+    void updatesScoreWhenOneTeamGained() {
+        long id = board.startMatch("Spain", "Brazil");
+        board.updateMatchScore(id, 10, 0);
+
+        Match match = board.getMatch(id);
+        assertEquals(10, match.getHomeScore());
+        assertEquals(0, match.getAwayScore());
+        assertEquals(10, match.totalScore());
     }
     @Test
     void forceUpdatesScore() {
